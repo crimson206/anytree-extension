@@ -143,6 +143,7 @@ options = Options(
 )
 
 dependencies = [
+    "anytree"
 ]
 
 
@@ -150,7 +151,7 @@ dependencies = [
 kwargs = Kwargs(
     version="0.1.0",
     name_space="crimson",
-    module_name="package-name",
+    module_name="anytree-extension",
     description="Your package description.",
     # https://pypi.org/classifiers/
     topics=["Topic :: Software Development :: Libraries :: Python Modules"],

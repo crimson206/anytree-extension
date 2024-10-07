@@ -10,9 +10,11 @@
 # variable = 1
 
 # W605: To use the crimson-templator module
-ignore = E501, W605, E203, W503
+ignore = E501, W605, E203, W503, E704
 
 # E305: To add 
 per-file-ignores =
     generate_toml.py: E305, E302
     __init__.py: F401
+
+    
