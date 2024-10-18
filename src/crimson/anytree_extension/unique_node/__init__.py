@@ -1,6 +1,7 @@
-from anytree import NodeMixin
-from typing import Generic, Tuple
+from anytree import NodeMixin, MyNode
+from typing import Generic, Tuple, Any
 from crimson.anytree_extension.types.node import NodeType
+from crimson.anytree_extension.patch.nodemixin import NodeMixinTyped
 from crimson.anytree_extension.utils.arranger import group_by_depth
 
 
@@ -55,10 +56,17 @@ class UniqueNodeAddon(Generic[NodeType]):
         add_index_all_init(root)
 
 
-class UniqueNode(NodeMixin, UniqueNodeAddon):
-    def __init__(self, name, parent=None, children=None, **kwargs):
+class UniqueNode(NodeMixinTyped[NodeType], UniqueNodeAddon):
+    def __init__(
+        self,
+        name: Any = None,
+        parent: NodeType = None,
+        children: Tuple[NodeType, ...] = None,
+        **kwargs,
+    ):
         self.__dict__.update(kwargs)
-        self.name = name
         self.parent = parent
         if children:
-            self.children: Tuple[UniqueNode] = children
+            self.children = children
+
+        self.name = name if name is not None else "depth" + str(self.depth)
