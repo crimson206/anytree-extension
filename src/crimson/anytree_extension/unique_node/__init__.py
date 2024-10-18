@@ -1,4 +1,3 @@
-from anytree import NodeMixin, MyNode
 from typing import Generic, Tuple, Any
 from crimson.anytree_extension.types.node import NodeType
 from crimson.anytree_extension.patch.nodemixin import NodeMixinTyped
