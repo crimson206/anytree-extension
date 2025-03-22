@@ -143,7 +143,7 @@ options = Options(
 )
 
 dependencies = [
-    "anytree"
+    "anytree==2.12.1"
 ]
 
 

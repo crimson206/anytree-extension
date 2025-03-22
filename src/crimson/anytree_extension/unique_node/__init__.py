@@ -2,6 +2,7 @@ from anytree import NodeMixin
 from typing import Generic, Tuple
 from crimson.anytree_extension.types.node import NodeType
 from crimson.anytree_extension.utils.arranger import group_by_depth
+from anytree.node.util import _repr
 
 
 def add_index_to_duplicated_children_name_init(parent: NodeType):
@@ -45,10 +46,7 @@ class UniqueNodeAddon(Generic[NodeType]):
             return None
 
     def __repr__(self):
-        name_to_display = (
-            self.name_unique if self.name_unique is not None else str(self.name)
-        )
-        return name_to_display
+        return _repr(self)
 
     def activate(self):
         root = self.path[0]
