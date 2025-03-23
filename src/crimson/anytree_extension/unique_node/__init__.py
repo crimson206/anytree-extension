@@ -1,8 +1,8 @@
-from anytree import NodeMixin, MyNode
-from typing import Generic, Tuple, Any
+from anytree import NodeMixin
+from typing import Generic, Tuple
 from crimson.anytree_extension.types.node import NodeType
-from crimson.anytree_extension.patch.nodemixin import NodeMixinTyped
 from crimson.anytree_extension.utils.arranger import group_by_depth
+from anytree.node.util import _repr
 
 
 def add_index_to_duplicated_children_name_init(parent: NodeType):
@@ -46,27 +46,17 @@ class UniqueNodeAddon(Generic[NodeType]):
             return None
 
     def __repr__(self):
-        name_to_display = (
-            self.name_unique if self.name_unique is not None else str(self.name)
-        )
-        return name_to_display
+        return _repr(self)
 
     def activate(self):
         root = self.path[0]
         add_index_all_init(root)
 
 
-class UniqueNode(NodeMixinTyped[NodeType], UniqueNodeAddon):
-    def __init__(
-        self,
-        name: Any = None,
-        parent: NodeType = None,
-        children: Tuple[NodeType, ...] = None,
-        **kwargs,
-    ):
+class UniqueNode(NodeMixin, UniqueNodeAddon):
+    def __init__(self, name, parent=None, children=None, **kwargs):
         self.__dict__.update(kwargs)
+        self.name = name
         self.parent = parent
         if children:
-            self.children = children
-
-        self.name = name if name is not None else "depth" + str(self.depth)
+            self.children: Tuple[UniqueNode] = children
